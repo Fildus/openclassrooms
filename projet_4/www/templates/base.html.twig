@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+    <meta charset="UTF-8">
+</head>
+<body>
+<figure>
+    <img src="{{ asset('build/img/3-pyramide-louvre.jpg') }}" alt="{{ 'home.presentation.alt'|trans }}" width="100%">
+</figure>
+
+{% include('navbar.html.twig') %}
+<div id="progress" class="container-fluid">
+    {% if progress is defined %}
+        <div class="progress">
+            <div class="progress-bar bg-{{ progress.color }}" role="progressbar" style="width: {{ progress.size }}%" aria-valuenow="{{ progress.size }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    {% endif %}
+</div>
+
+{% for flash in flashs %}
+    {{ flash | raw }}
+{% endfor %}
+
+<div class="container" id="Custom-form">
+{% block body %}
+{% endblock %}
+</div>
+
+{% block javascript %}
+    <script src="{{ asset('build/js/all.js') }}"></script>
+{% endblock %}
+
+</body>
+</html>

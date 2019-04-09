@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-md fixed-top">
+
+
+	<a class="nav-item-custom" href="/"><i class="fas fa-book"></i> Chapitres</a>
+	
+	<button class="navbar-toggler .custom-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+	
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+
+		<ul class="navbar-nav mr-auto">
+            {% for session in session %}
+                {% if session.rights == 4 %}
+					<li class="nav-item active nav-item-custom">
+						<a class="nav-link" href="/admin/chapitres/page-1"><i class="fas fa-cog"></i> Admin<span class="sr-only">(current)</span></a>
+					</li>
+					{% elseif session.rights == 3 %}
+						<li class="nav-item active nav-item-custom">
+							<a class="nav-link" href="/admin/chapitres/page-1"><i class="fas fa-cog"></i> Admin<span class="sr-only">(current)</span></a>
+						</li>
+                	{% elseif session.rights == 2 %}
+					<li class="nav-item active nav-item-custom">
+						<a class="nav-link" href="/admin/commentaires/page-1"><i class="fas fa-cog"></i> Admin<span class="sr-only">(current)</span></a>
+					</li>
+                {% endif %}
+            {% endfor %}
+			<li class="nav-item nav-item-custom">
+                {% if not session %}
+				<a class="nav-link" data-toggle="modal" data-target="#CONNEXION"><i class="fas fa-sign-in-alt"></i>
+                {% endif %}
+				{% if session %}
+				<a class="nav-link" style="color:#008000;" data-toggle="modal" data-target="#CONNEXION"><i class="fas fa-power-off"></i>
+				{% endif %}
+
+				{% if not session %}
+						<span>Connexion</span>
+					{% endif %}
+					{% if session %}
+						<span style="color: #008000;">Connecté</span>
+					{% endif %} <span class="sr-only">(current)</span>
+				</a>
+            </li>
+		
+		</ul>
+
+	</div>
+	
+</nav>

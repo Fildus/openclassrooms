@@ -1,0 +1,58 @@
+{% extends "LayoutAdmin.twig" %}
+
+{% block content %}
+    {% for article in article %}
+
+        <div class="big-title-admin">
+            <h1>{{ article.article_title }}</h1>
+            <div class="row">
+                <h6 class="col-3">Autheur:              {{ article.users_pseudo }}                          </h6>
+                <h6 class="col-3">Date de création :<br>{{ article.article_creation_date|date("d/m/Y") }}   </h6>
+                <h6 class="col-3">Chapitre:             {{ article.chapter_name }}                          </h6>
+                <h6 class="col-3">Visibilité:           {{ article.article_visibility }}                    </h6>
+            </div>
+        </div>
+
+        <div class="container">
+            <form action="" method="post">
+
+                <label for="updateArticle[title]">Le titre de l'article :</label>
+                <input name="updateArticle[title]" id="updateArticle[title]" type="text" class="card-title col-12 form-control" value="{{ article.article_title }}" maxlength="50" minlength="4">
+
+                <label for="updateArticle[summary]">Sommaire de l'article (ne pas mettre de signes spéciaux):</label>
+                <textarea name="updateArticle[summary]" id="updateArticle[summary]]" type="text" class="card-title col-12 form-control" minlength="6" maxlength="500">{{ article.article_summary }}</textarea>
+
+                <label for="updateArticle[content]">Le contenu de l'article :</label>
+                <textarea name="updateArticle[content]" id="updateArticle[content]" class="col-12 textarea-custom-admin form-control" minlength="6" maxlength="10000">
+                    {{ article.article_content }}
+                </textarea>
+
+                <div class="form-group">
+                    <label for="updateArticle[visibility]">Selectionnez la visibilitée</label>
+                    <select name="updateArticle[visibility]" class="form-control">
+                        <option value="prive"  {% if article.article_visibility == 'prive' %} selected="selected"{% endif %}>Brouillon</option>
+                        <option value="public" {% if article.article_visibility == 'public' %}selected="selected"{% endif %}>publié</option>
+                    </select>
+                </div>
+
+                <input name="updateArticle[id]" type="text" value="{{ article.article_id }}" hidden>
+
+                <div class="form-group">
+                    <label for="updateArticle[chapter_id]">Selectionnez le chapitre</label>
+                    <select name="updateArticle[chapter_id]" class="form-control">
+                        {% for chapters in chapters %}
+                            <option value="{{ chapters.id }}" {% if chapters.id == article.article_chapter_id %}selected="selected"{% endif %}>{{ chapters.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-12 d-flex flex-row-reverse">
+                    <a href="/article-{{ article.article_id }}" class="btn btn-outline-dark">Voir</a>
+                    &nbsp;
+                    <button type="submit" class="btn btn-outline-success">Enregistrer</button>
+                </div>
+
+            </form>
+
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,93 @@
+email:
+    label: Confirmation email
+    placeholder: dupont@gmail.com
+
+visitor:
+    label: first and last name
+    firstname: Firstname
+    lastname: Lastname
+    birthday: Birthday
+    nationality: Nationality of the visitor?
+
+date:
+    day: Day
+    month: Month
+    year: Year
+
+ticket:
+    label:
+        faretype: half-day rate (from 14h)
+        discount: Reduced rate (student or military), An attestaion will be required.
+        booking:  date of reservation
+
+form:
+    submission: Order
+    service:
+        date: An order the same day is possible. You must select the half day option.
+
+stripe:
+    data_description: Paiement on my beautifull site
+    name: you buying your tickets
+    total: Total amount
+    mail: Your email
+    number:
+        label: Bank card
+        placeholder: 4242424242424242
+    month:
+      label: Month
+      placeholder: MM
+    year:
+      label: Year
+      placeholder: YY
+    cvc:
+      label: security code
+      placeholder: 555
+    submit: Buy
+
+home:
+    presentation:
+        img: louvre museum
+        alt: louvre museum
+
+getorder:
+    code: please enter your reservation code
+    submit: Recover my tickets
+
+navbar:
+    title: Musé du louvre
+    tickets: Recover your tickets
+
+recap:
+    p:
+        <p>The total amount of your order is  <strong>order.total€ TTC</strong>.
+        You will receive within 10 minutes the tickets on <strong>order.mail</strong>.</p>
+    ticketNumber: N° of ticket
+    fare: Fare
+    price: Price
+    firstname: First name
+    lastname: Last name
+    country: Country
+    birthday: Birthday
+
+title:
+    index: <span class="text-muted">Step n°1</span> Selection of tickets
+    stripe: <span class="text-muted">Step n°2</span> Payment
+    recap: <span class="text-muted">Step n°3</span> Purchase Summary
+presentation:
+    index:
+        <p class="text-justify text-muted">
+        The museum is open all year except Tuesday, May 1, November 1 and December 25.
+        The rate is reduced for students, museum and military employees.
+        You can select this option by clicking on "reduced fare".
+        Proof will be required at the entrance.
+        </p>
+    stripe:
+        <p class="text-justify text-muted">
+        Your tickets will be sent to you by email.
+        At the next step you will be able to see all of your order
+        </p>
+    recap:
+        <p class="text-justify text-muted">
+        The tickets will be automatically sent to you by email.
+        To view your order please enter the token you received by email.
+        </p>

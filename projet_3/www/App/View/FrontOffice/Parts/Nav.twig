@@ -1,0 +1,31 @@
+<div class="row">
+    {% if not page %} <div class="col-1"></div> {% endif %}
+    {% if page %}
+        {% for page in page %}
+            <div class="left-button col-2 text-center"><a href="{{ page.previous }}"><i class="fas fa-arrow-left"></i></a></div>
+        {% endfor %}
+    {% endif %}
+    <div class="col-8">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-4 twitter">
+                        <center><a class="tfi"><i class="fab fa-twitter"></i></a></center>
+                    </div>
+                    <div class="col-4 facebook">
+                        <center><a class="tfi"><i class="fab fa-facebook-f" ></i></a></center>
+                    </div>
+                    <div class="col-4 instagram">
+                        <center><a class="tfi"><i class="fab fa-instagram"></i></a></center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if page %}
+        {% for page in page %}
+            <div class="right-button col-2 text-center"><a href="{{ page.next }}"><i class="fas fa-arrow-right"></i></a></div>
+        {% endfor %}
+    {% endif %}
+    {% if not page %} <div class="col-2"></div> {% endif %}
+</div>

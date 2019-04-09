@@ -1,0 +1,33 @@
+{% extends 'back-office/base.html.twig' %}
+
+{% block title %}Images{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Images</h1>
+
+    <div class="row">
+        {% for image in pagination %}
+            <div class="card-body col-3">
+                <a href="{{ path('image_show', {'id': image.id}) }}">
+                    <img class="cover-custom" src="{{ asset('img/'~image.image.name) }}" alt="" width="100%">
+                </a>
+            </div>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+    </div>
+
+    <div class="col-12 text-right">
+        <a class="btn btn-success" href="{{ path('image_new') }}">
+            Nouveau <i class="fas fa-plus"></i>
+        </a>
+    </div>
+
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center mb-4">
+        {{ knp_pagination_render(pagination) }}
+    </ul>
+
+{% endblock %}

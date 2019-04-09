@@ -1,0 +1,31 @@
+<div class="modal fade" id="createAlertComments{{ comment.id }}" tabindex="-1" role="dialog" aria-labelledby="Comment" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Comment">Signaler!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form name="createAlertComments" method="post" action="">
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <label for="createAlertComments[content]" class="form-control-label" ></label>
+                            <input name="createAlertComments[content]" type="text" class="form-control"
+                                   placeholder="Raisons du signalement" aria-label="content"
+                                   aria-describedby="basic-addon2" required minlength="6" maxlength="50">
+                        </div>
+                        <input name="createAlertComments[comment_id]" type="text" value="{{ comment.id }}" hidden>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-danger">alerter!</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

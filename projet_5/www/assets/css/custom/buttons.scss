@@ -1,0 +1,100 @@
+@mixin button($color){
+  font-family: Ubuntu, sans-serif, sans-serif;
+  font-size: 0.7em;
+  font-weight: bold;
+  color: $darkCustom;
+  display: flex;
+  height: 40px;
+  width: 130px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  box-shadow: 2px 2px 5px #555;
+  border-radius: 5px;
+  transition-duration: 200ms;
+  span{
+    margin: auto;
+  }
+  img{
+    border-radius: 0 5px 5px 0;
+    border: 0;
+    margin: 0;
+    padding: 0;
+  }
+  &:hover{
+    background-color: $color;
+    color: #FFF;
+    box-shadow: 1px 1px 2px #555;
+    cursor: pointer;
+  }
+}
+
+.buttons-custom-accueil {
+ @include button($greenCustom)
+}
+
+.button-on-page-accueil{
+  @include button($greenCustom);
+  background-color: $greenCustom;
+  color: #FFF;
+}
+
+.buttons-custom-observation {
+  @include button($blueCustom)
+}
+
+.button-on-page-observation{
+  @include button($blueCustom);
+  background-color: $blueCustom;
+  color: #FFF;
+}
+
+.buttons-custom-carte {
+  @include button($redCustom)
+}
+
+.button-on-page-carte{
+  @include button($redCustom);
+  background-color: $redCustom;
+  color: #FFF;
+}
+
+.buttons-custom-évènements {
+  @include button($blueCustom)
+}
+
+.button-on-page-évènements{
+  @include button($blueCustom);
+  background-color: $blueCustom;
+  color: #FFF;
+}
+
+.buttons-custom-blog {
+  @include button($orangeDarkCustom)
+}
+
+.button-on-page-blog{
+  @include button($orangeDarkCustom);
+  background-color: $orangeDarkCustom;
+  color: #FFF;
+}
+
+.buttons-custom-connexion {
+  @include button($orangeLightCustom)
+}
+
+.button-on-page-connexion{
+  @include button($orangeLightCustom);
+  background-color: $orangeLightCustom;
+  color: #FFF;
+}
+
+.buttons-custom-mon{
+  @include button($orangeLightCustom)
+}
+
+.button-on-page-mon{
+  @include button($orangeLightCustom);
+  background-color: $orangeLightCustom;
+  color: #FFF;
+}

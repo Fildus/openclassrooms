@@ -1,0 +1,5 @@
+framework:
+    test: true
+    default_locale: fr
+    session:
+        storage_id: session.storage.mock_file

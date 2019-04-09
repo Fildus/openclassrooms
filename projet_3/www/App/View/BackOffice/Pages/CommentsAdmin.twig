@@ -1,0 +1,46 @@
+{% extends "LayoutAdmin.twig" %}
+
+{% block content %}
+
+    <div class="big-title-admin">
+        <h1>Commentaires signalés</h1>
+    </div>
+
+    <div class="container">
+        <table class="table table-striped  text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Titre du commentaire    </th>
+                    <th scope="col">Titre de l'article      </th>
+                    <th scope="col">Utilisateur en cause    </th>
+                    <th scope="col">Plus d'infos            </th>
+                    <th scope="col">Supprimer le commentaire</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for comments in comments %}
+                    <tr>
+                        <td>{{ comments.comment_title }}            </td>
+                        <td>{{ comments.article_title }}            </td>
+                        <td>{{ comments.user_pseudo }}              </td>
+
+                        <td>
+                            <a href="/admin/commentaire-{{ comments.comment_id }}" class="btn btn-outline-primary">Plus d'infos</a>
+                        </td>
+
+                        <td>
+                            <form action="" method="post">
+                                <button class="btn btn-outline-danger col-12" type="submit" name="deleteComment[id]" value="{{ comments.comment_id }}">
+                                    Supprimer!
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {{ include('NewArticle.twig') }}
+    </div>
+{% endblock %}

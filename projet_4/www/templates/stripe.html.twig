@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="banniere">
+        <h2 class="text-center">{{ 'stripe.title'|trans|raw }}</h2>
+        {{ 'stripe.presentation'|trans|raw }}
+    </div>
+
+    <div class="stripePayment">
+
+        <form action="{{ path('stripe') }}" id="payment_form" method="post">
+
+            <div class="payment-errors"></div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ 'stripe.total'|trans }}</span>
+                </div>
+                <output type="text" class="form-control text-right">{{ stripe.total }}</output>
+                <div class="input-group-append">
+                    <span class="input-group-text">.00 €</span>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ 'stripe.mail'|trans }}</span>
+                </div>
+                <output type="text" class="form-control">{{ stripe.mail }}</output>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ 'stripe.number.label'|trans }}</span>
+                </div>
+                <input name="number" type="text" pattern="^\d+$" class="form-control" placeholder="{{ 'stripe.number.placeholder'|trans }}" data-stripe="number" required minlength="16" maxlength="16">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ 'stripe.month.label'|trans }}</span>
+                </div>
+                <input name="exp_month" type="text" pattern="^\d+$" class="form-control" placeholder="{{ 'stripe.month.placeholder'|trans }}" data-stripe="exp_month" required minlength="1" maxlength="2">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ 'stripe.year.label'|trans }}</span>
+                </div>
+                <input name="exp_year" type="text" pattern="^\d+$" class="form-control" placeholder="{{ 'stripe.year.placeholder'|trans }}" data-stripe="exp_year" required minlength="2" maxlength="2">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">{{ 'stripe.cvc.label'|trans }}</span>
+                </div>
+                <input name="cvc" type="text" pattern="^\d+$" class="form-control" placeholder="{{ 'stripe.cvc.placeholder'|trans }}" data-stripe="cvc" required minlength="3" maxlength="3">
+            </div>
+
+            <button type="submit" class="btn btn-outline-success col-12">{{ 'stripe.submit'|trans }}</button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script data-locale="FR">
+        Stripe.setPublishableKey('{{ stripe.data_key }}');
+
+        let $form = $('#payment_form'); // On récupère le formulaire
+        $form.submit(function (e) {
+            e.preventDefault();
+            $form.find('button').prop('disabled', true); // On désactive le bouton submit
+            Stripe.card.createToken($form, function (status, response) {
+                if (response.error) { // Ah une erreur !
+                    // On affiche les erreurs
+                    $form.find('.payment-errors').text(response.error.message);
+                    $form.find('.payment-errors').attr('class','payment-errors alert alert-warning');
+                    $form.find('button').prop('disabled', false); // On réactive le bouton
+                } else { // Le token a bien été créé
+                    let token = response.id; // On récupère le token
+                    // On crée un champs cachée qui contiendra notre token
+                    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                    $form.get(0).submit(); // On soumet le formulaire
+                }
+            });
+        });
+
+    </script>
+{% endblock %}

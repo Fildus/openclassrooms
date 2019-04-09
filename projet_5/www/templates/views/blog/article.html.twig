@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Blog des oiseaux - Nos Amis Les Oiseaux</title>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <div class="row">
+            <div class="col-12 mt-5">
+                <h2 class="card-title">{{ article.title }}</h2>
+            </div>
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+
+                {% if article is defined %}
+                    <!-- Blog Post -->
+
+                    <div>
+                        Posté le {{ article.date|date('d-M-Y') }} par
+                        <a href="{{ path('user_show', {'id': article.author.id}) }}">{{ article.author.firstName ~ ' ' ~ article.author.lastName }}</a>
+                    </div>
+
+                    <div class="card mb-4">
+                        {% if article.image.image is defined %}
+                            <figure>
+                                <img class="card-img-top" src="{{ asset('img/'~article.image.image.name) }}" alt="{{ article.image.image.name }}">
+                            </figure>
+                        {% endif %}
+                        <div class="card-body">
+                            <p class="card-text text-justify">{{ article.content|raw }}</p>
+                            <div class="text-right">
+                                <a href="{{ path('blogArticle' ,{slug : article.Slug}) }}">
+                                    <div class="col-12 mt-5">
+                                        <button class="btn btn-outline-secondary float-right" onclick="changeHidden(null, null)">
+                                            Répondre
+                                        </button>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+                <!-- Categories Widget -->
+                <div class="card my-4 articles-decouvrir">
+                    <h5 class="card-header">D'autres articles à découvrir</h5>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <ul class="list-unstyled mb-0">
+                                    {% for article in articlestodiscover %}
+                                        {% if loop.index <= 5 %}
+                                            <li>
+                                                <a href="{{ path('blogArticle', {'slug': article.Slug}) }}">{{ article.title }}</a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% form_theme comment 'bootstrap_4_layout.html.twig' %}
+        <!-- /.row -->
+        <div class="card my-4">
+            <h5 class="card-header" >Laisser un commentaire à <span id="commentateur">l'article</span></h5>
+            <div class="card-body">
+                {#<div class="input-group">#}
+                {{ form_start(comment) }}
+                <div class="row">
+                    {{ form_errors(comment.content) }}
+                    {{ form_widget(comment.content, {'attr':{'class':'form-group col-12'}}) }}
+                    <div class="col-12">
+                        <input class="btn btn-primary float-right mt-2" type="submit" value="Soumettre">
+                    </div>
+                </div>
+                {{ form_end(comment) }}
+            </div>
+        </div>
+
+        {% for comment in comments %}
+            <div class="
+                {% if comment.lvl is not defined %}
+                col-12
+                {% else %}
+                col-{{ 12-comment.lvl }} offset-{{ comment.lvl }}
+                {% endif %}
+                ">
+                <div class="row mb-2">
+                    <div class="col-2 col-md-1">
+                        <img class="rounded-circle" width="40" height="40" src="{{ asset('img/'~comment.author.image.image.name ?? null) }}">
+                    </div>
+                    <div class="col-10 col-md-11">s
+                        <p class="font-weight-bold">Commentaire de {{ comment.author.firstName }} {{ comment.author.lastName }}</p>
+                        <p style="word-wrap: break-word;">{{ comment.content|striptags }}</p>
+                        <button
+                                class="btn btn-outline-secondary float-right mb-3"
+                                onclick="changeHidden({{ comment.id }},
+                                        '{{ comment.author.firstName ~ ' ' ~ comment.author.lastName }}')
+                                        ">
+                            Répondre
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script >
+        function changeHidden(id, author){
+            if (id !== null && author !== null){
+                let commentElt = document.getElementById('comment_parent');
+                commentElt.setAttribute('value',id);
+                let repondreElt = document.getElementById('commentateur');
+                repondreElt.innerText = author;
+            }else{
+                let commentElt = document.getElementById('comment_parent');
+                commentElt.removeAttribute('value');
+                let repondreElt = document.getElementById('commentateur');
+                repondreElt.innerText = "";
+            }
+        }
+    </script>
+{% endblock %}

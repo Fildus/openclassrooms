@@ -1,0 +1,100 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Carte migration des oiseaux - Nos Amis Les Oiseaux - NAO</title>
+{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="consultez la carte migration des oiseaux, découvrez les photos des différentes espèces et les zones bénéfiques à la protection des oiseaux." />
+{% endblock %}
+
+{% block style %}
+    {{ parent() }}
+
+    <style>
+        #mapid{
+            height: 100%;
+            min-height: 595px;
+        }
+    </style>
+{% endblock %}
+{% block body %}
+    <section class="container">
+
+        <div id="weathermap" class="map-container z-depth-1-half"></div>
+
+        <article class="row ustify-content-md-center">
+            {% for ob in obs %}
+                {% if ob.checked %}
+                <div class="col-md-6 col-lg-4 my-4">
+                    <div class="card">
+                        {% if ob.image.image.name is defined %}
+                            <img class="card-img-top" src="{{ asset('img/'~ob.image.image.name) }}" alt="{{ ob.image.alt }}">
+                        {% else %}
+                            <img class="card-img-top" src="{{ asset('imgSite/default_bird.png') }}" alt="image-oiseau-picto">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ ob.species.nomFr }} ({{ ob.species.lbNom }})</h5>
+                            <hr>
+                            <p class="card-text">{{ ob.description | escape}}</p>
+                            <p class="card-text">de : {{ ob.author.lastName | upper | escape }} {{ ob.author.firstName | capitalize | escape}} le {{ ob.date | date("d/m/Y") }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </article>
+    </section>
+
+
+
+{% endblock %}
+{% block script %}
+    {{ parent() }}
+ <script>
+     function checkVariable() {
+         if (L !== undefined) {
+
+        $(document).ready(function() {
+            // initialisation de la map + position de la map
+            document.getElementById('weathermap').innerHTML = "<div id='mapid' style='width: 100%; height: 100%;'></div>";
+            var $mymap = L.map('mapid').setView([46.72, 2.61], 6);
+            L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 6,
+                minZoom: 5,
+                id: 'mapbox.streets',
+                accessToken: 'pk.eyJ1IjoiZnJvc3RlIiwiYSI6ImNqaDd3OHdtbzAwbm0ycXFsbmFtOTJidTIifQ.C6l9gAch8EEE5fxzCIF35g'
+            }).addTo($mymap);
+
+            var napIcon = L.icon({
+                iconUrl: '{{ asset('imgSite/element_logo_NAO.png') }}',
+                iconSize: [108, 103], // size of the icon
+
+                popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+            });
+
+            var $myItems =
+                [
+                    {% for ob in obs %}
+                        {% if ob.checked %}
+                            ["{{  ob.description }}", {{ ob.position.latitude ?? 'null'}}, {{ ob.position.longitude ?? 'null'}}],
+                        {% endif %}
+                    {% endfor %}
+                ];
+
+            for (var $i = 0; $i < $myItems.length; $i++) {
+
+                    {% if user in ['admin', 'professional'] %}
+                        $marker = new L.marker([$myItems[$i][1], $myItems[$i][2]] )
+                    {% else %}
+                        $marker = new L.marker([$myItems[$i][1], $myItems[$i][2]], {icon: napIcon} )
+                    {% endif %}
+                    .bindPopup($myItems[$i][0])
+                    .addTo($mymap)
+            }
+        });
+
+        }}setTimeout(checkVariable, 300);
+    </script>
+{% endblock %}

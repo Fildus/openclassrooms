@@ -1,0 +1,38 @@
+{% extends 'back-office/base.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <a class="btn-outline-dark" href="{{ path('user_index') }}">
+        <i class="far fa-arrow-alt-circle-left"></i> Utilisateurs
+    </a>
+
+    <h1 class="text-center">Utilisateur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ user.firstName }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ user.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>Date de création</th>
+                <td>{{ user.registrationDate ? user.registrationDate|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Sommaire</th>
+                <td>{{ user.summary }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {{ include('back-office/user/_delete_form.html.twig') }}
+{% endblock %}

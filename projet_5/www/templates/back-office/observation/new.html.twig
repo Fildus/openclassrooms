@@ -1,0 +1,11 @@
+{% extends 'back-office/base.html.twig' %}
+
+{% block title %}Nouvelle observation{% endblock %}
+
+{% block body %}
+    <a class="btn-outline-dark" href="{{ path('observation_index') }}">
+        <i class="far fa-arrow-alt-circle-left"></i> Observations
+    </a>
+    <h1 class="text-center">Nouvelle observation</h1>
+    {{ include('back-office/observation/_form.html.twig') }}
+{% endblock %}

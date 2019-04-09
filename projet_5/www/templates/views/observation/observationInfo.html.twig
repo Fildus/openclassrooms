@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Observez les oiseaux - Ajouter une observations - NAO</title>
+{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="Grâce à cette application, ajouter des observations d'oiseau, grâce à votre smartphone: classez les par espèce pour le bénéfice d'un étude sur la biodiversité." />
+{% endblock %}
+
+{% block body %}
+
+    <div class="card text-white border-0 mb-5">
+        <img class="card-img cover-custom" src="{{ asset('imgSite/pages/page-observation-compte-nao.jpg') }}" alt="Bouteille à la mers" width="100%">
+        <div class="card-img-overlay d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="row" style="height: 100%">
+                    <div class="col-12 text-center mt-2 align-self-center">
+                        <h1 class="text-white" style="font-size: 2em">{{ 'observation_h1_titre' | trans }}</h1>
+                        <div class="d-flex justify-content-center">
+                            <div style="background: rgba(255,255,255,0.7);" class="pt-3 pb-3 pl-5 pr-5">
+                                <h2>{{ 'observation_h2_sous_titre' | trans }}</h2>
+                                <p class="font-weight-bold" style="color: black;">{{ 'observation_text' | trans}}</p>
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <a href="{{ path('connexion') }}">
+                                <img class="mr-2 ml-2" src="{{ asset('imgSite/buttons/connexion.png') }}" alt="connexion" width="200px">
+                            </a>
+                            <a href="{{ path('createAccount') }}">
+                                <img class="mr-2 ml-2" src="{{ asset('imgSite/buttons/Creer - 1.png') }}" alt="connexion" width="200px">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="container">
+        <article class="row">
+            {% for item in elementPage.item %}
+                <div class="col-md-6 mt-4">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <img class="mt-2" src="{{ asset('imgSite/'~item.imgPath) }}" alt="" width="100%">
+                        </div>
+                        <div class="col-lg-6">
+                            <h3 class="text-center mb-0 mt-2">{{ item.title }}</h3>
+                            <p class="font-weight-bold text-center mb-0 text-truncate">{{ item.underTitle }}</p>
+                            <p class="text-justify mt-0 truncate-custom">{{ item.summary }}</p>
+                        </div>
+                        <div class="col-12 text-right">
+                            <a class="btn btn-outline-light" data-toggle="modal" data-target="#modal-{{ loop.index }}"><img src="{{ asset('imgSite/buttons/Symbole 3 – 6.png') }}" alt="" height="50px"></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modal-{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{ item.title }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <img class="mt-2 float-right pl-2" src="{{ asset('imgSite/'~item.imgPath) }}" alt="" width="50%">
+                                <p class="text-justify">{{ item.content }}</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'btn_close' | trans }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </article>
+        <br>
+        <aside id="newsletter">
+            <h2 class="text-center">{{ 'h2_newsletter' | trans }}</h2>
+            <hr>
+            <p class="text-center font-weight-bold">{{ 'subtitle_newsletter' | trans}}</p>
+            {{ form_start(newsForm) }}
+            <div class="input-group my-3">
+                {{ form_errors(newsForm.mail) }}
+                {{ form_widget(newsForm.mail, {'attr':{'class':'form-control', 'placeholder':'Votre mail'}}) }}
+                <div class="input-group-append">
+                    <button type="submit"
+                            class="btn btn-primary">
+                        <span style="color: white"><i class="far fa-envelope"></i></span>
+                    </button>
+                </div>
+            </div>
+            {{ form_end(newsForm) }}
+        </aside>
+    </section>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+
+    {% if formLogin is defined %}
+        {% form_theme formLogin 'bootstrap_4_layout.html.twig' %}
+        <div class="container" style="margin-top: 250px">
+            {{ form_start(formLogin, {'attr':{'class':'form-sign-in'}}) }}
+                <img class="mb-4" src="https://www.megaebin.com/public/images/signin.gif" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">Pour vous connecter</h1>
+                <div class="form-group">
+                    {{ form_widget(formLogin.email, {'attr':{'class':'form-control mt-2', 'placeholder':'Votre email'}}) }}
+                    {{ form_widget(formLogin.password, {'attr':{'class':'form-control mt-2', 'placeholder':'Votre mot de passe'}}) }}
+                    <button class="btn btn-lg btn-success btn-block col-12 col-md-4 offset-md-8 mt-2" type="submit">Connectez-vous !</button>
+                </div>
+            {{ form_end(formLogin) }}
+            <div>
+                <div class="mt-4 text-center">
+                    <a class="btn" href="{{ path('createAccount') }}">
+                        <img class="mr-2 ml-2" src="{{ asset('imgSite/buttons/Creer - 1.png') }}" alt="connexion" width="200px">
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if formCreateAccount is defined%}
+        {% form_theme formCreateAccount 'bootstrap_4_layout.html.twig' %}
+        <div class="container" style="margin-top: 250px">
+            {{ form_start(formCreateAccount) }}
+                <img class="mb-4" src="http://icons.iconarchive.com/icons/graphicloads/flat-finance/256/person-icon.png" alt="" width="72" height="72">
+                <h1 class="h3 mb-3 font-weight-normal">{{ 'connection_h1' | trans }}</h1>
+                <div class="form-group row">
+                    {{ form_errors(formCreateAccount.firstName) }}
+                    {{ form_widget(formCreateAccount.firstName, {'attr':{'class':'form-control col-12 col-md-6 mt-2', 'placeholder':'Votre prénom'}}) }}
+                    {{ form_errors(formCreateAccount.lastName) }}
+                    {{ form_widget(formCreateAccount.lastName, {'attr':{'class':'form-control col-12 col-md-6 mt-2', 'placeholder':'Votre nom'}}) }}
+                    {{ form_errors(formCreateAccount.email) }}
+                    {{ form_widget(formCreateAccount.email, {'attr':{'class':'form-control mt-2', 'placeholder':'Votre email'}}) }}
+                    {{ form_errors(formCreateAccount.password) }}
+                    {{ form_widget(formCreateAccount.password, {'attr':{'class':'form-control mt-2', 'placeholder':'Votre password'}}) }}
+                    {{ form_rest(formCreateAccount) }}
+                </div>
+                <button class="btn btn-lg btn-success btn-block col-12  col-md-4 offset-md-8 mt-2" type="submit">{{ 'connection_btn_creat' | trans}}</button>
+            {{ form_end(formCreateAccount) }}
+        </div>
+    {% endif %}
+
+    {% if user is defined %}
+        <div class="col-12 text-right mt-2">
+            <a href="{{ path('disconnect') }}">
+                <img src="{{ asset('imgSite/buttons/déconnexion.png') }}" alt="déconnexion" width="150px">
+            </a>
+        </div>
+        <div class="container">
+            <h2 class="text-center my-4">Bienvenue {{ user.firstName ~ ' ' ~ user.lastName| upper }}</h2>
+            <div class="card">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card-img">
+                            <img class="cover-custom-account"
+                                 src="{{ asset('img/'~user.image.image.name ?? null) }}"
+                                 alt="{{ user.image.image.alt ?? null }}">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card-body">
+                            <h3>Mes informations</h3>
+                            <p>Prénom et nom : <strong>{{ user.firstName~' '~user.lastName}}</strong></p>
+                            <p>Votre role au sein de l'application est <strong>{{ user.role }}</strong></p>
+                            <p>Votre mail : <strong>{{ user.email }}</strong></p>
+                            <p>Vous vous êtes inscrit le <strong>{{ user.registrationDate|date('d-m-Y') }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-text text-center">sommaire</h3>
+                            <p class="card-text">{{ user.summary }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% if user.articles is defined and user.articles is not empty %}
+            <h3 class="text-center my-4">Mes derniers articles</h3>
+            <table class="table table-responsive-md text-center">
+            <thead>
+                <tr>
+                    <th width="25%">Titre</th>
+                    <th width="25%">Publié</th>
+                    <th width="25%">Catégorie</th>
+                    <th width="25%">Article</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for article in user.articles %}
+                {% if loop.index <= 5 %}
+                    <tr>
+                        <td>{{ article.title ?? 'null'}}</td>
+                        <td>{{ article.published ? 'Oui' : 'Non' ?? 'null'}}</td>
+                        <td>{{ article.categories.name ?? 'Non définie'}}</td>
+                        <td><a href="{{ path('blogArticle',{'slug':article.Slug}) }}">{{ article.Slug }}</a></td>
+                    </tr>
+                {% endif %}
+            {% else %}
+                <tr>
+                    <td colspan="9">Vous n'avez pas d'articles à votre actif</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+        {% endif %}
+
+
+        {% if user.event is defined and user.event is not empty %}
+            <h3 class="text-center my-4">Mes derniers événements</h3>
+            <table class="table table-responsive-md text-center">
+                <thead>
+                <tr>
+                    <th width="25%">Titre</th>
+                    <th width="25%">Publié</th>
+                    <th width="25%">Sommaire</th>
+                    <th width="25%">Lien</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in user.event %}
+                    {% if loop.index <= 5 %}
+                        <tr>
+                            <td>{{ event.title ?? 'null'}}</td>
+                            <td>{{ event.published ? 'Oui' : 'Non' ?? 'null'}}</td>
+                            <td>{{ event.summary|striptags }}</td>
+                            <td><a href="{{ path('evenement',{'slug':event.Slug}) }}">{{ event.Slug }}</a></td>
+                        </tr>
+                    {% endif %}
+                {% else %}
+                    <tr>
+                        <td colspan="9">Vous n'avez pas d'articles à votre actif</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        </div>
+    {% endif %}
+{% endblock %}

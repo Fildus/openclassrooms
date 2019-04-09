@@ -1,0 +1,136 @@
+#!/usr/bin/env php
+PHPUnit 6.5.8 by Sebastian Bergmann and contributors.
+
+Testing Project Test Suite
+.                                                                   1 / 1 (100%)<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/build/css/app.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+<figure>
+    <img src="/build/img/3-pyramide-louvre.jpg" alt="musé du louvre" width="100%">
+</figure>
+
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <a class="navbar-brand" href="/">Musé du louvre</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/fr/recap">Récupérer vos tickets<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <div id="langue">
+            <a href="/fr/paiement">fr</a>
+            <a href="/en/paiement">en</a>
+        </div>
+    </div>
+</nav><div id="progress" class="container-fluid">
+            <div class="progress">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: 66.666666666667%" aria-valuenow="66.666666666667" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+
+<div class="container" id="Custom-form">
+
+    <div class="banniere">
+        <h2 class="text-center"><span class="text-muted">Etape n°2</span> paiement</h2>
+        <p class="text-justify text-muted text-center">Vos tickets vous seront envoyés par mail. A l'étape suivante vous pourrez visualiser l'ensemble de votre commande</p>
+    </div>
+
+    <div class="stripePayment">
+
+        <form action="/fr/paiement" id="payment_form" method="post">
+
+            <div class="payment-errors"></div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Montant total</span>
+                </div>
+                <output type="text" class="form-control text-right">8</output>
+                <div class="input-group-append">
+                    <span class="input-group-text">.00 €</span>
+                </div>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Votre email</span>
+                </div>
+                <output type="text" class="form-control">davidgastaldello@msn.com</output>
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Carte bancaire</span>
+                </div>
+                <input name="number" type="text" pattern="^\d+$" class="form-control" placeholder="4242424242424242" data-stripe="number" required minlength="16" maxlength="16">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Mois</span>
+                </div>
+                <input name="exp_month" type="text" pattern="^\d+$" class="form-control" placeholder="MM" data-stripe="exp_month" required minlength="1" maxlength="2">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Année</span>
+                </div>
+                <input name="exp_year" type="text" pattern="^\d+$" class="form-control" placeholder="AA" data-stripe="exp_year" required minlength="2" maxlength="2">
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">Code de sécurité</span>
+                </div>
+                <input name="cvc" type="text" pattern="^\d+$" class="form-control" placeholder="555" data-stripe="cvc" required minlength="3" maxlength="3">
+            </div>
+
+            <button type="submit" class="btn btn-outline-success col-12">Acheter</button>
+        </form>
+    </div>
+
+</div>
+
+        <script src="/build/js/all.js"></script>
+
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script data-locale="FR">
+        Stripe.setPublishableKey('pk_test_0qpcWx5gkWzV92iEiuHckQYQ');
+
+        let $form = $('#payment_form'); // On récupère le formulaire
+        $form.submit(function (e) {
+            e.preventDefault();
+            $form.find('button').prop('disabled', true); // On désactive le bouton submit
+            Stripe.card.createToken($form, function (status, response) {
+                if (response.error) { // Ah une erreur !
+                    // On affiche les erreurs
+                    $form.find('.payment-errors').text(response.error.message);
+                    $form.find('.payment-errors').attr('class','payment-errors alert alert-warning');
+                    $form.find('button').prop('disabled', false); // On réactive le bouton
+                } else { // Le token a bien été créé
+                    let token = response.id; // On récupère le token
+                    // On crée un champs cachée qui contiendra notre token
+                    $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+                    $form.get(0).submit(); // On soumet le formulaire
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
+
+Time: 371 ms, Memory: 4.00MB
+
+[30;42mOK (1 test, 2 assertions)[0m

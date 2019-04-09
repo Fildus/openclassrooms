@@ -1,0 +1,55 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+
+    <div class="banniere">
+        <h2 class="text-center">{{ 'title.recap'|trans|raw }}</h2>
+        {{ 'presentation.recap'|trans|raw }}
+    </div>
+
+    {% if order is defined and order is not empty %}
+        <div class="recap">
+
+        <p>{{ 'recap.p'|trans|replace({
+                'order.total':order.total,
+                'order.mail':order.mail
+            })|raw
+            }}</p>
+
+        <table class="table table-responsive-md text-center">
+            <thead>
+                <tr>
+                    <th scope="col">{{ 'recap.ticketNumber'|trans }}</th>
+                    <th scope="col" class="visible-md">{{ 'recap.fare'|trans }}</th>
+                    <th scope="col">{{ 'recap.price'|trans }}</th>
+                    <th scope="col">{{ 'recap.firstname'|trans }}</th>
+                    <th scope="col">{{ 'recap.lastname'|trans }}</th>
+                    <th scope="col">{{ 'recap.country'|trans }}</th>
+                    <th scope="col">{{ 'recap.birthday'|trans }}</th>
+                </tr>
+            </thead>
+        {% for ticket in order.ticket %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ ticket.fare.name }}</td>
+                    <td>{{ ticket.fare.price }}</td>
+                    <td>{{ ticket.visitor.firstName }}</td>
+                    <td>{{ ticket.visitor.lastName }}</td>
+                    <td>{{ ticket.visitor.country }}</td>
+                    <td>{{ ticket.visitor.birthday.date|date('d-M-Y') }}</td>
+                </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+    </div>
+        {% else %}
+            <div class="recap">
+                <div class="form-group">
+                    {{ form_start(form) }}
+                        {{ form_row(form.name) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+    {% endif %}
+{% endblock %}

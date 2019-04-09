@@ -1,0 +1,52 @@
+{% extends('base.html.twig') %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+    <div class="visitor" data-prototype="{{ form_widget(form.ticket.vars.prototype)|e('html_attr') }}"></div>
+
+    <div id="Custom-form">
+        <div class="banniere">
+            <h2 class="text-center">{{ 'title.index'|trans|raw }}</h2>
+            {{ 'presentation.index'|trans|raw }}
+        </div>
+    {{ form_start(form) }}
+
+        {{ form_row(form.mail) }}
+
+        <hr>
+
+        <div class="col-12">
+            <div class="btn-group">
+                <button type="button" class="btn btn-danger lessTickets">-</button>
+                <output type="text"   class="btn btn-light numberOfTickets"></output>
+                <button type="button" class="btn btn-success moreTickets">+</button>
+            </div>
+        </div>
+
+        <hr>
+        <div class="form">
+            {% set MyLoop = 1 %}
+
+            {% if form.ticket is not empty %}
+                {{ form_errors(form) }}
+                {% for ticket in form.ticket %}
+                    <div class="singleVisitor" id="visiteurElt-{{ loop.index }}">
+                        {{ form_widget(ticket)|replace({'__name__':loop.index})|raw }}
+                        {% set MyLoop = loop.index+1 %}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div id="MyLoop" data="{{ MyLoop }}" hidden></div>
+
+
+        </div>
+
+        <input type="submit" class="btn btn-success col-12" value="{{ 'form.submission'|trans }}">
+        {{ form_end(form) }}
+        <hr>
+
+    </div>
+
+{% endblock %}

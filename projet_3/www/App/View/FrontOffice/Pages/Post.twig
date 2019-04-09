@@ -1,0 +1,66 @@
+{% extends "LayoutFront.twig" %}
+
+{% block title %}Posts{% endblock %}
+{% block active %}active{% endblock %}
+
+{% block content %}
+
+    {% for article in article %}
+        <div class="big-title">
+            <div class="row">
+                <h1 class="col-12">{{ article.article_title }}</h1>
+                <h6 class="col-4">Autheur: {{ article.users_pseudo }}</h6>
+                <h6 class="col-4">Date de création {{ article.article_creation_date|date("d/m/Y") }}</h6>
+                <h6 class="col-4">Chapitre : {{ article.chapter_name }}</h6>
+            </div>
+        </div>
+        <div class="container text-justify card-custom-stay">
+            {{ include('Comment.twig') }}
+            <div class="row" style="padding: 10px;">
+                <div class="col-12" style="padding-right: 30px;padding-left: 30px;">
+                    <div>{{article.article_content}}</div>
+                </div>
+                <div class="col-12 d-flex flex-row-reverse">
+                    <button type="button" class="btn btn-outline-success btn-sm postbutton" data-toggle="modal" data-target="#Comment{{ comment.id }}" data-whatever="@mdo">Réagir</button>
+                    {% for session in session %}
+                        {% if session.rights >= 3 %}
+                            <div class="col-12 d-flex flex-row-reverse">
+                                <a href="/admin/article-{{ article.article_id }}" class="btn btn-primary">Éditer</a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+    <div class="container card-comment">
+        <div class="row">
+            {% for comment in comment %}
+            <div class="col-md-{{ 12 - comment.lvl }} offset-{{ comment.lvl }} card-each-comment">
+                <div class="row" style="padding: 10px;">
+                    <div class="col-12" style="padding-right: 30px;padding-left: 30px;">
+                        <div class="row">
+                            <h4 class="col-12">{{comment.title}}</h4>
+                            <p class="col-12">{{comment.content}}</p>
+                            <details class="col-12">
+                                <summary>A propos de {{ comment.pseudo }}</summary>
+                                <p class="col-12">{{ comment.user_content}}</p>
+                            </details>
+                        </div>
+                    </div>
+                    <div class="col-12 d-flex flex-row-reverse">
+                        <button type="button" class="btn btn-outline-success btn-sm postbutton" data-toggle="modal" data-target="#Comment{{ comment.id }}" data-whatever="@mdo">Répondre</button>
+                        <button type="button" class="btn btn-outline-secondary btn-sm postbutton" data-toggle="modal" data-target="#createAlertComments{{ comment.id }}" data-whatever="@mdo">Signaler!</button>
+                    </div>
+                </div>
+            </div>
+                {{ include('Comment.twig') }}
+                {{ include('Alert.twig') }}
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+
+
+{% endblock %}

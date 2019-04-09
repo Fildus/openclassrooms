@@ -1,0 +1,227 @@
+html{
+    width: 100%;
+    min-height: 100%;
+    position: absolute;
+}
+
+body {
+    margin-top: 60px;
+    width: 100%;
+    height:100%;
+    background: url("/Web/assets/img/Northern-lights-in-Fairbanks1.jpg") fixed;
+    background-size: cover;
+}
+h1,h2,h3,h4,h5,h6{
+    color: #008000;
+}
+.background{
+    box-shadow: 15px 15px 30px #000000;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    margin-bottom: 150px;
+    border-radius: 0 0 20px 20px;
+    background-color: #f1f1f1;
+}
+
+.big-title{
+    margin-top: -20px;
+    margin-right: -15px;
+    margin-left: -15px;
+    background-color: #2d3e1a;
+    text-align: center;
+}
+
+.big-title h1{
+    font-size: 4em;
+    line-height: 100px;
+    color: #ffffff;
+}
+
+.big-title *{
+    color: #ffffff;
+}
+
+a, a:hover{
+    color:inherit;text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+.alert{
+transition-property: all;
+transition-duration: 1s;
+transition-timing-function: ease;
+}
+
+.postbutton{
+width: 100px;
+margin-right: 5px;
+}
+
+.modal-body button{
+    margin-bottom:10px;
+}
+
+nav{
+    box-shadow: 20px 20px 100px #000000;
+    border-bottom: solid 2px #008000;
+}
+
+nav:hover{
+    transition-property: all;
+    transition-duration: .3s;
+    transition-timing-function: ease-out;
+}
+
+.navbar{
+    background-color: #ffffff;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,0,0, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler-icon:hover{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0,142,21, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+    transition-property: all;
+    transition-duration: .3s;
+    transition-timing-function: ease-out;
+}
+
+.left-button, .right-button{
+    margin: auto;
+    font-size: 2em;
+    color: #ffffff;
+}
+
+.footer{
+    position: fixed;
+    padding: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    color: #ffffff;
+    background-color: #26292e;
+}
+
+.footer a:hover{
+    color: #000;
+}
+
+/** effect card **/
+.card-custom{
+    margin: 5px;
+    border-radius: 3px;
+}
+
+.card-custom:hover{
+    box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.5);
+    transition-property: all;
+    transition-duration: 0.6s; /* on aurait pu écrire 500ms également */
+    transition-timing-function: ease;
+}
+.card-resize{
+    padding-left:0;
+    padding-right:0;
+}
+
+.img-custom{
+    width: 100%;
+    box-shadow: 5px 5px 20px #646464;
+    margin-top:10px;
+    margin-bottom:15px;
+    border-radius: 20px;
+}
+
+.custom-button{
+    margin: 5px;
+}
+
+.card-text{
+    height: 140px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-title{
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.card-custom-stay{
+    border-bottom: solid 2px #008000;
+    border-radius: 5px;
+}
+
+.card-comment{
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.card-each-comment{
+    margin-top: 5px;
+    border-radius: 15px;
+    border-bottom:dashed 1px #008000;
+    border-top:dashed 1px #008000;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: ease-out;
+}
+
+.card-each-comment h1,h2,h3,h4,h5,h6{
+    color: #000000;
+}
+
+.card-each-comment:hover{
+    background-color: #ffffffb5;
+    box-shadow: 5px 5px 10px #c8c8c8;
+}
+
+.twitter, .facebook, .instagram{
+    margin-top:5px;
+    margin-bottom: 5px;
+}
+
+/** couleurs footer **/
+.twitter:hover{color: #5df99a;}
+.facebook:hover{color: #298BF9;}
+.instagram:hover{color:#eb9800}
+.twitter:hover,.facebook:hover,.instagram:hover{
+    transition-property: all;
+    transition-duration: 1s; /* on aurait pu écrire 500ms également */
+    transition-timing-function: ease;
+}
+
+/** effects nav **/
+.nav-item-custom{
+    border-style: none;
+    margin-right:10px;
+    margin-left: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.nav-item-custom:hover{
+    background-color: inherit;
+    border-style: none;
+    border-radius: 5px;
+    color: #008000;
+    transition-property: all;
+    transition-duration: 0.2s; /* on aurait pu écrire 500ms également */
+    transition-timing-function: ease;
+}
+
+.nav-link{
+    padding:0;
+}
+
+.tfi{
+    font-size: 2em;
+    padding: 0;
+    margin: 0;
+}

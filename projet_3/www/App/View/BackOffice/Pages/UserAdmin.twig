@@ -1,0 +1,42 @@
+{% extends "LayoutAdmin.twig" %}
+
+{% block content %}
+    {% for users in users %}
+
+        <div class="big-title-admin">
+            <h1>{{ users.pseudo }}</h1>
+            <div class="row">
+                <h6 class="col-3 offset-1">email: {{ users.email }}</h6>
+                <h6 class="col-4">Date de création <br> {{ users.creation_date|date("d/m/Y") }}</h6>
+                <h6 class="col-3">Droits:
+                    {% if users.rights == 1 %}Visiteur{% endif %}
+                    {% if users.rights == 2 %}Modérateur{% endif %}
+                    {% if users.rights == 3 %}Autheur{% endif %}
+                    {% if users.rights == 4 %}Administrateur{% endif %}
+                </h6>
+
+                <h6 class="col-10 offset-1 text-justify">pharse de présentation: {{ users.content }}</h6>
+            </div>
+        </div>
+
+        <div class="container">
+        <form action="" method="post">
+
+            <input type="text" name="updateUsers[id]" value="{{ users.id }}" hidden>
+
+            <div class="form-group">
+                <label for="updateUsers[rights]">Modifier les droits</label>
+                <select name="updateUsers[rights]" class="form-control">
+                    <option value="1" {%  if users.rights == 1 %}selected="selected"{% endif %}>Visiteur      </option>
+                    <option value="2" {%  if users.rights == 2 %}selected="selected"{% endif %}>Modérateur    </option>
+                    <option value="3" {%  if users.rights == 3 %}selected="selected"{% endif %}>Autheur       </option>
+                    <option value="4" {%  if users.rights == 4 %}selected="selected"{% endif %}>Administrateur</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-outline-success col-2 offset-10">Modifier !</button>
+
+        </form>
+
+    {% endfor %}
+{% endblock %}

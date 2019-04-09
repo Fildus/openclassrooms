@@ -1,0 +1,71 @@
+{% extends "LayoutAdmin.twig" %}
+
+{% block content  %}
+    {% for chapters in chapters %}
+        <div class="big-title-admin">
+            <h1>Chapitre</h1>
+            <h2>{{ chapters.name }}</h2>
+        </div>
+        <div class="container">
+            <img  class="img-custom" style="display: block; margin: auto;" src="{{ chapters.img }}" alt=""><br>
+        </div>
+
+        <div class="container">
+            <div class="row">
+            <form action="" method="post" name="updateChapter" class="col-12">
+
+                <label for="updateChapter[name]">Nom du chapitre :</label>
+                <input type="text" name="updateChapter[name]" value="{{ chapters.name }}" class="form-control" maxlength="50" minlength="4">
+
+                <label for="updateChapter[summary]"> Sommaire du chapitre :</label>
+                <textarea name="updateChapter[summary]" class="form-control" minlength="6" maxlength="500">{{ chapters.summary }}</textarea>
+
+                <input type="text" name="updateChapter[id]" value="{{ chapters.id }}" hidden>
+
+                <br>
+
+                <div class="col-12 d-flex flex-row-reverse" style="padding-bottom:10px;">
+                    <a class="btn btn-outline-dark" href="/chapitre-{{chapters.id}}">Voir</a>
+                    &nbsp;
+                    <button type="submit" class="btn btn-outline-success float-right">Enregistrer</button>
+                </div>
+
+            </form>
+
+            {% if not chapters.img %}
+
+                <form method="POST" action="" enctype="multipart/form-data" class="col-12">
+                    <br>
+                    <div class="container">
+                        <div class="row">
+                            <input type="text" name="img[id]" value="{{ chapters.id }}" hidden class="col-12">
+                            <div class="col-12">
+                                <div class="row">
+                                    <input type="file" name="img" class="col-8">
+                                    <input type="submit" name="createImage" value="Envoyer le fichier" class="btn btn-outline-success col-4 float-right">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            {% endif %}
+
+            {% if chapters.img %}
+                <form method="POST" action="" enctype="multipart/form-data" class="col-12">
+                    <br>
+                    <input type="text" name="deleteImage[path]" value="{{ chapters.img }}" hidden>
+                    <input type="text" name="deleteImage[id]" value="{{ chapters.id }}" hidden>
+                    {% for session in session %}
+                        {% if session.rights == 4 %}
+                            <input type="submit" name="deleteImage[text]" value="Supprimer l'image" class="btn btn-outline-danger float-right">
+                        {% endif %}
+                    {% endfor %}
+
+                </form>
+            {% endif %}
+
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

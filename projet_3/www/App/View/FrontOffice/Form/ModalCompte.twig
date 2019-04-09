@@ -1,0 +1,55 @@
+{% for session in session %}
+    {% for user in user %}
+        <div class="modal fade" id="ACCOUNT" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="login">Compte de <strong>{{ user.pseudo }}</strong></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="" method="post">
+                            <div class="form-group">
+                                <p>Date de création <strong>{{ user.creation_date }}</strong></p>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fas fa-user"></i></span>
+                                    </div>
+                                    <input name="updateUsers[pseudo]" type="text" class="form-control" value="{{ user.pseudo }}" required minlength="4" maxlength="50">
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-envelope-open"></i></span>
+                                    </div>
+                                    <label for="email" class="form-control-label"></label>
+                                    <input id="email" name="updateUsers[email]" type="email" class="form-control" value="{{ user.email }}" required>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon2"><i class="fas fa-book"></i></span>
+                                    </div>
+                                    <label for="email" class="form-control-label"></label>
+                                    <textarea id="content" name="updateUsers[content]" type="text" class="form-control" rows="5" maxlength="200">{{ user.content }}</textarea>
+                                </div>
+
+                                <input name="updateUsers[id]" type="text" value="{{ user.id }}" hidden>
+
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                <button type="submit" class="btn btn-success">Modifier!</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}

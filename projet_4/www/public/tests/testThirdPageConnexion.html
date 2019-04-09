@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+PHPUnit 6.5.8 by Sebastian Bergmann and contributors.
+
+Testing Project Test Suite
+.                                                                   1 / 1 (100%)<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="/build/css/app.css">
+    <meta charset="UTF-8">
+</head>
+<body>
+<figure>
+    <img src="/build/img/3-pyramide-louvre.jpg" alt="musé du louvre" width="100%">
+</figure>
+
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <a class="navbar-brand" href="/">Musé du louvre</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/fr/recap">Récupérer vos tickets<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <div id="langue">
+            <a href="/fr/recap">fr</a>
+            <a href="/en/recap">en</a>
+        </div>
+    </div>
+</nav><div id="progress" class="container-fluid">
+            <div class="progress">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+    </div>
+
+
+<div class="container" id="Custom-form">
+
+    <div class="banniere">
+        <h2 class="text-center"><span class="text-muted">Etape n°3</span> Récapitulatif</h2>
+        <p class="text-justify text-muted"> Les tickets vous seront automatiquement envoyés par mail. Pour visualiser votre commande veuillez entrer le token qui vous a été donné par mail. </p>
+    </div>
+
+                <div class="recap">
+                <div class="form-group">
+                    <form name="get_order" method="post">
+                        <div><input type="text" id="get_order_name" name="get_order[name]" required="required" class="form-control mb-2" placeholder="Veuillez entrer votre code de réservation" /></div>
+                    <div><button type="submit" id="get_order_submit" name="get_order[submit]" class="btn btn-outline-success col-12">Récuperer mes tickets</button></div><input type="hidden" id="get_order__token" name="get_order[_token]" value="-hw-mol63Awj7vM8GT585XpAYynWq8SggiyRaBdWzuY" /></form>
+                </div>
+            </div>
+    </div>
+
+    <script src="/build/js/all.js"></script>
+
+</body>
+</html>
+
+Time: 249 ms, Memory: 4.00MB
+
+[30;42mOK (1 test, 1 assertion)[0m

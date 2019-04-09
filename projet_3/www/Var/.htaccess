@@ -1,0 +1,4 @@
+AuthName "Accès limités"
+AuthType Basic
+AuthUserFile "/home/david/www/blog/Var/.htpasswd"
+Require valid-user

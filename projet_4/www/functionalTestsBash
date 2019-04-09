@@ -1,0 +1,15 @@
+rm public/tests/* &&
+bin/phpunit --process-isolation --filter=testFirstPageConnexion > public/tests/testFirstPageConnexion.html &&
+bin/phpunit --process-isolation --filter=testSecondPageConnexion > public/tests/testSecondPageConnexion.html &&
+bin/phpunit --process-isolation --filter=testThirdPageConnexion > public/tests/testThirdPageConnexion.html &&
+bin/phpunit --process-isolation --filter=testSelectLanguageFrEn > public/tests/testSelectLanguageFrEn.html &&
+bin/phpunit --process-isolation --filter=testPrepareBuyingOneTicket > public/tests/testPrepareBuyingOneTicket.html &&
+bin/phpunit --process-isolation --filter=testPrepareBuyingThreeTicket > public/tests/testPrepareBuyingThreeTicket.html &&
+bin/phpunit --process-isolation --filter=testPrepareBuyingTicketMailIncorrect > public/tests/testPrepareBuyingTicketMailIncorrect.html &&
+bin/phpunit --process-isolation --filter=testPrepareBuyingTicketPastDay > public/tests/testPrepareBuyingTicketPastDay.html &&
+bin/phpunit --process-isolation --filter=testPrepareBuyingTicketCloseDay > public/tests/testPrepareBuyingTicketCloseDay.html &&
+bin/phpunit --process-isolation --filter=testPrepareBuyingTicketFullMuseum > public/tests/testPrepareBuyingTicketFullMuseum.html &&
+bin/phpunit --process-isolation --filter=testBuyingOneTicketPriceNormal > public/tests/testBuyingOneTicketPriceNormal.html &&
+bin/phpunit --process-isolation --filter=testBuyingOneTicketPriceEnfant > public/tests/testBuyingOneTicketPriceEnfant.html &&
+bin/phpunit --process-isolation --filter=testBuyingOneTicketPriceSenior > public/tests/testBuyingOneTicketPriceSenior.html &&
+bin/phpunit --process-isolation --filter=testBuyingOneTicketPriceDiscount > public/tests/testBuyingOneTicketPriceDiscount.html

@@ -1,0 +1,42 @@
+<div class="modal fade" id="CONNEXION" tabindex="-1" role="dialog" aria-labelledby="#CONNEXION" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Menu de connexion</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% if not session %}
+                    <button type="button" class="btn btn-outline-success col-12" data-toggle="modal" data-target="#LOGIN" data-whatever="@mdo">Login</button>
+                {% endif %}
+                {% if session %}
+
+                    {% if session%}
+                        <form name="compte" action="#" method="post">
+                            <button type="button" class="btn btn-outline-info col-12" data-toggle="modal" data-target="#ACCOUNT" data-whatever="@mdo">Mon compte</button>
+                        </form>
+                    {% endif %}
+
+                    <form name="logout" action="#" method="post">
+                        <button name="logout[logout]" type="submit" class="btn btn-outline-dark col-12" id="logout">Logout</button>
+                    </form>
+                {% endif %}
+                <div class="container">
+                    <div class="row">
+                        {% if not session %}
+                            <button type="button" class="btn btn-outline-info col-12" data-toggle="modal" data-target="#SUBSCRIBE" data-whatever="@mdo">S'enregistrer</button>
+                        {% endif %}
+                        {% if session %}
+                            <button type="button" class="btn btn-outline-danger col-5 offset-7" data-toggle="modal" data-target="#UNSUBSCRIBE" data-whatever="@mdo">Se désinscrire</button>
+                        {% endif %}
+                    </div>
+                </div>
+             </div>
+            <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

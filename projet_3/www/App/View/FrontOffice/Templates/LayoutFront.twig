@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+        {{ include('Head.twig') }}
+	</head>
+
+	<body>
+
+		<div class="container background">
+            {{ include('ModalConnexion.twig') }}
+            {{ include('ModalUnsubscribe.twig') }}
+            {{ include('ModalLogin.twig') }}
+            {{ include('ModalSubscribe.twig') }}
+                {% if session %}
+                    {{ include('ModalCompte.twig') }}
+                {% endif %}
+
+			<header>
+				{{ include('Header.twig') }}
+			</header>
+
+			<main role="main">
+				{{ block('content') }}
+			</main>
+
+		</div>
+
+
+		<footer class="container-fluid footer">
+            {{ include('Nav.twig') }}
+		</footer>
+			{{ include('CssJs.twig') }}
+    </body>
+
+</html>

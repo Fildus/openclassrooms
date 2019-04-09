@@ -1,0 +1,47 @@
+{% extends "LayoutAdmin.twig" %}
+
+{% block content %}
+    {% for comments in comments %}
+
+        <div class="big-title-admin">
+            <h1>Commentaire signalé</h1>
+            <div class="row">
+                <h6 class="col-12">Autheur: {{ comments.user_pseudo }}</h6>
+                <h6 class="col-12">Date d'inscription{{ comments.user_creation_date }}</h6>
+                <h6 class="col-12">Mail: {{ comments.user_email }}</h6>
+                <h6 class="col-12">Date de publication du commentaire: {{ comments.comment_creation_date|date("d/m/Y") }}</h6>
+            </div>
+        </div>
+
+        <div class="container" style="padding: 30px;">
+            <h3 style="color: #26292E;">Contenu du commentaire</h3>
+            <div class="row">
+                <div class="col-12 card-each-comment">
+                    <h4 class="col-12">{{comments.comment_title}}</h4>
+                    <p class="col-12">{{comments.comment_content}}</p>
+                </div>
+            </div>
+        </div>
+
+    <div class="container" style="padding: 30px;">
+        <h3 style="color: #26292E;">Signalisation</h3>
+        {% for alert in alert %}
+            <div class="row">
+                <div class="col-12 card-each-comment" style="border:dashed 3px #ff0000;">
+                    <h4 class="col-12">{{alert.content}}</h4>
+                    <p class="col-12">{{alert.creation_date}}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <form action="" method="post">
+            <button type="submit" name="deleteComment[id]" value="{{ comments.comment_id }} " class="btn btn-danger col-2 offset-10">
+                Supprimer!
+            </button>
+        </form>
+    </div>
+
+    {% endfor %}
+{% endblock %}

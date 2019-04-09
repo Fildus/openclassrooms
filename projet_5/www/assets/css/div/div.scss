@@ -1,0 +1,27 @@
+.search{
+  background: $blueCustom;
+  border:none;
+}
+
+.articles-decouvrir a{
+  color: $orangeDarkCustom;
+}
+
+@media screen and (min-width: 1199px) {
+  .truncate-custom{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 190px;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .truncate-custom{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 145px;
+  }
+}
+
+.text-custom-shadow{
+  text-shadow: #000 2px 2px 5px;
+}

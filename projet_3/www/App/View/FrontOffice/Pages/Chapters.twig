@@ -1,0 +1,45 @@
+{% extends "LayoutFront.twig" %}
+
+
+{% block content %}
+
+    <div class="big-title">
+        <h1>Chapitres</h1>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            {% for chapters in chapters %}
+                <div class="col-lg-6 col-md-6 col-xs-12 card-resize">
+                    <div class="row card-custom">
+                        <div class="col-12">
+                            <img src="{{ chapters.img }}"width="100%">
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                                <h2 class="col-12 card-title">{{ chapters.name|default }}</h2>
+                            </div>
+                            <div class="card-text text-justify">{{ chapters.summary }}</div>
+                        </div>
+
+                        <div class="container" style="padding: 0;">
+
+                            <div class="col-12 d-flex flex-row-reverse" style="padding-bottom:10px;">
+                                <a class="btn btn-success" href="/chapitre-{{chapters.id}}">Lire</a>
+                                &nbsp;
+                                {% for session in session %}
+                                    {% if session.rights >= 3 %}
+                                <a href="/admin/chapitre-{{ chapters.id }}" class="btn btn-primary">Éditer</a>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

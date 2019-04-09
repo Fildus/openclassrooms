@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Blog des oiseaux - Nos Amis Les Oiseaux</title>
+{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="Ce blog propose des articles sur la biodiversité, la protection des oiseaux : consultez nos actions et études sur toutes les espèces que nous protégeons." />
+{% endblock %}
+
+{% block body %}
+
+<div class="card text-white border-0 mb-5 text-custom-shadow">
+    <img class="card-img cover-custom" src="{{ asset('imgSite/pages/page_blog_nao.jpg') }}" alt="Bouteille à la mers">
+    <div class="card-img-overlay d-flex justify-content-center">
+        <div class="col-md-10 text-left align-self-end">
+            <h1 class="font-weight-bold text-white mb-lg-5">{{ 'blog_h1_titre' | trans }}</h1>
+            <h2>{{ 'blog_h2_sous_titre' | trans }}</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+            {% for article in pagination %}
+                {% if article.published %}
+                <!-- Blog Post -->
+                <div class="card mb-4 mt-4">
+                    {% if article.image.image is defined %}
+                        <figure>
+                            <img class="card-img-top" src="{{ asset('img/'~article.image.image.name) }}" alt="{{ article.image.image.name }}">
+                        </figure>
+                    {% endif %}
+                    <div class="card-body">
+                        <h2 class="card-title">{{ article.title }}</h2>
+                        <p class="card-text text-justify">{{ article.summary|raw }}</p>
+                        <div class="text-right">
+                            <a href="{{ path('blogArticle' ,{slug : article.Slug}) }}">
+                                <img src="{{ asset('imgSite/buttons/Symbole 3 – 6.png') }}" alt="" height="50px;">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posté le {{ article.date|date('d-M-Y') }} par
+                        <a href="{{ path('user_show', {'id': article.author.id}) }}">{{ article.author.firstName ~ ' ' ~ article.author.lastName }}</a>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+
+            <!-- Pagination -->
+            <ul class="pagination justify-content-center mb-4">
+                {{ knp_pagination_render(pagination) }}
+            </ul>
+
+        </div>
+
+        <!-- Sidebar Widgets Column -->
+        <aside class="col-md-4">
+
+            <!-- Search Widget -->
+            <div class="card my-4">
+                <h5 class="card-header">{{ 'btn_search' | trans }}</h5>
+                <div class="card-body">
+                    <form>
+                        <div class="input-group my-3">
+                            <input type="text"
+                                   name="q"
+                                   class="form-control"
+                                   placeholder="{{ 'placeholder_search_article' | trans }}"
+                                   value="{{ app.request.query.get('q') }}"
+                                   id="js-autocomplete-article"
+                            >
+                            <div class="input-group-append">
+                                <button type="submit"
+                                        class="btn btn-primary">
+                                    <span style="color: white"><i class="fa fa-search"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card my-4">
+                <h5 class="card-header">{{ 'h2_newsletter' | trans }}</h5>
+                <div class="card-body">
+                    <p class="text-center font-weight-bold">{{ 'subtitle_newsletter' | trans }}</p>
+                    <form>
+                        {{ form_start(newsForm) }}
+                        <div class="input-group my-3">
+                            {{ form_errors(newsForm.mail) }}
+                            {{ form_widget(newsForm.mail, {'attr':{'class':'form-control', 'placeholder':'Votre mail'}}) }}
+                            <div class="input-group-append">
+                                <button type="submit"
+                                        class="btn btn-primary">
+                                    <span style="color: white"><i class="far fa-envelope"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                        {{ form_end(newsForm) }}
+                    </form>
+                </div>
+            </div>
+
+        </aside>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // autocomplete jquery ui
+            $('#js-autocomplete-article')
+                .autocomplete({
+                    source: document.getElementById('js-autocomplete-article').getAttribute({{ path('article_autocomplete') }}),
+                    minLength: 2
+                });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,95 @@
+email:
+    label: Email de confirmation
+    placeholder: dupont@gmail.com
+
+visitor:
+    label: Prénom et nom
+    firstname: Prénom
+    lastname: Nom
+    birthday: Date d'anniversaire
+    nationality: Nationnalité du visiteur ?
+
+date:
+    day: Jour
+    month: Mois
+    year: Année
+
+ticket:
+    label:
+        faretype: tarif demi journée (à partir de 14h)
+        discount: Tarif réduit (étudiant ou militaire), une attestation vous sera demandée.
+        booking:  date de réservation
+
+form:
+    submission: soumission du formulaire
+    service:
+        date: Une commande le jour même est possible. Vous devez séléctionner l'option demi journée.
+
+stripe:
+    data_description: Paiment sur mon super site
+    name: Achat de vos tickets
+    total: Montant total
+    mail: Votre email
+    number:
+      label: Carte bancaire
+      placeholder: 4242424242424242
+    month:
+      label: Mois
+      placeholder: MM
+    year:
+      placeholder: AA
+      label: Année
+    cvc:
+      label: Code de sécurité
+      placeholder: 555
+    submit: Acheter
+    title: <span class="text-muted">Etape n°2</span> paiement
+    presentation: <p class="text-justify text-muted text-center">Vos tickets vous seront envoyés par mail. A l'étape suivante vous pourrez visualiser l'ensemble de votre commande</p>
+
+home:
+    presentation:
+        img: Musé du louvre
+        alt: musé du louvre
+
+getorder:
+    code: Veuillez entrer votre code de réservation
+    submit: Récuperer mes tickets
+
+navbar:
+    title: Musé du louvre
+    tickets: Récupérer vos tickets
+
+recap:
+    p:
+        <p>Le total de votre commande est de <strong>order.total€ TTC</strong>.
+        Vous recevrez dans les 10 minutes les tickets sur <strong>order.mail</strong>.</p>
+    ticketNumber: N° du ticket
+    fare: Tarif
+    price: Prix
+    firstname: Prénom
+    lastname: Nom
+    country: Nationalité
+    birthday: Date de naissance
+
+title:
+    index: <span class="text-muted">Etape n°1</span> Sélection des tickets
+    stripe: <span class="text-muted">Etape n°2</span> Paiement
+    recap: <span class="text-muted">Etape n°3</span> Récapitulatif
+presentation:
+    index:
+        <p class="text-justify text-muted">
+        Le musé est ouvert toute l'année sauf le mardi, 1er mai, 1er novembre et 25 décembre.
+        Le tarif est réduit pour les étudiants, employés du musée et militaire.
+        Vous pouvez sélectionner cette option en cliqunt sur "tarif réduit".
+        Un justificatif vous sera demandé à l'entrée.
+        </p>
+    stripe:
+        <p class="text-justify text-muted">
+        Vos tickets vous seront envoyés par mail.
+        A l'étape suivante vous pourrez visualiser l'ensemble de votre commande
+        </p>
+    recap:
+        <p class="text-justify text-muted">
+        Les tickets vous seront automatiquement envoyés par mail.
+        Pour visualiser votre commande veuillez entrer le token qui vous a été donné par mail.
+        </p>

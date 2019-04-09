@@ -1,0 +1,12 @@
+{% extends 'back-office/base.html.twig' %}
+
+{% block title %}Nouvel événement{% endblock %}
+
+{% block body %}
+    <a class="btn-outline-dark" href="{{ path('event_index') }}">
+        <i class="far fa-arrow-alt-circle-left"></i> Evenements
+    </a>
+
+    <h1 class="text-center">Nouvel événement</h1>
+    {{ include('back-office/event/_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'back-office/base.html.twig' %}
+
+{% block title %}Observations{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Observations</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Espèces</th>
+                <th>Date</th>
+                <th>Validé</th>
+                <th>image</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for observation in pagination %}
+            <tr>
+                <td>{{ observation.species.nomFr }}</td>
+                <td>{{ observation.date ? observation.date|date('Y-m-d') : '' }}</td>
+                <td>{{ observation.checked ? 'Oui' : 'Non' }}</td>
+                <td>
+                    {% if observation.image.image is defined %}
+                        <img src="{{ asset('img/'~observation.image.image.name) }}" height="50px">
+                        {% else %}
+                            <img src="{{ asset('imgSite/default_bird.png') }}" height="50px">
+                    {% endif %}
+                </td>
+                <td class="text-right pr-3 action">
+                    <div class="action">
+                        <a class="btn btn-info" href="{{ path('observation_show', {'id': observation.id }) }}">
+                            <i class="far fa-eye"></i>
+                        </a>
+                        <a class="btn btn-primary" href="{{ path('observation_edit', {'id': observation.id}) }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="col-12 text-right">
+        <a class="btn btn-success" href="{{ path('observation_new') }}">
+            Nouveau <i class="fas fa-plus"></i>
+        </a>
+    </div>
+
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center mb-4">
+        {{ knp_pagination_render(pagination) }}
+    </ul>
+{% endblock %}

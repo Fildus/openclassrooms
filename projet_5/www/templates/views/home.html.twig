@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Association de protection des oiseaux - Nos Amis Les Oiseaux</title>
+{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="Notre association protège les oiseaux grâce à des actions citoyennes qui permettent d’œuvrer en faveur de la biodiversité. Agissez pour l’environnement. " />
+{% endblock %}
+
+{% block body %}
+    <div class="card text-white border-0 mb-5">
+        <img class="card-img cover-custom" src="{{ asset('imgSite/pages/page-accueil-nao.jpg') }}" alt="Bouteille à la mers">
+        <div class="card-img-overlay d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="row" style="height: 100%">
+                    <div class="col-12"></div>
+                    <div class="col-12 text-center mt-2  text-custom-shadow">
+                        <img src="{{ asset('imgSite/nos actions.png') }}" alt="" height="100px">
+                        <h1 class="text-white mt-2" style="font-size: 2em;">{{ 'home_h1_titre' | trans }}<br>{{ 'home_h1_sous_titre' | trans }}</h1>
+                    </div>
+                    <div class="col-12 text-center">
+                        <a href="{{ path('createAccount') }}" class="btn btn-primary">{{ 'home_btn_1' | trans }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="container">
+        <div class="row">
+            <article id='presentation' class="col-12 col-lg-6">
+                <h2 class="text-center">{{ 'home_h2_presentation' | trans }}</h2>
+                <p class="text-center font-weight-bold">{{ 'home_subtitle_presentation' | trans }}</p>
+                <p class="text-justify">{{ 'home_text_presentation' | trans }}</p>
+            </article>
+
+            <article id="observation" class="col-12 col-lg-6">
+                <h2 class="text-center">{{ 'home_h2_observation' | trans }}</h2>
+                <div class="row">
+                    {% for observation in observations %}
+                        {% if observation.checked %}
+                        <div class="col-12 col-md-6">
+                            <div class="card text-white border-0 mb-5">
+                                {% if observation.image.image.name is defined %}
+                                    <img class="card-img observation-image-custom" src="{{ asset('img/'~observation.image.image.name) }}" alt="" width="100%" height="100%">
+                                    {% else %}
+                                        <img class="card-img observation-image-custom" src="{{ asset('/imgSite/default_bird.png') }}" alt="" width="100%" height="100%">
+                                {% endif %}
+                                <div class="card-img-overlay d-flex justify-content-end p-0">
+                                    <div class="d-flex flex-column justify-content-end">
+                                        <a data-toggle="modal" data-target="#modal-{{ loop.index }}" style="cursor: pointer;">
+                                            <img src="{{ asset('imgSite/buttons/plus-2.png') }}" height="50px;">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="modal-{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">{{ 'Observation de : '~ observation.author.firstName ~' '~ observation.author.lastName }}</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>{{ 'Le : ' ~ observation.date |date('d-m-Y') }}</p>
+                                        {% if observation.position.address.villeNom is defined %}
+                                            <p>{{ 'Lieu d\'observation : ' ~ observation.position.address.villeNom }}</p>
+                                        {% endif %}
+                                        {% if observation.image.image.name is defined %}
+                                            <img class="mt-2 float-right pl-2" src="{{ asset('img/'~observation.image.image.name) }}" alt="" width="50%">
+                                        {% endif %}
+                                        <p class="text-justify">{{ observation.description }}</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </article>
+        </div>
+
+        <aside id="newsletter">
+            <h2 class="text-center">{{ 'h2_newsletter' | trans }}</h2>
+            <hr>
+            <p class="text-center font-weight-bold">{{ 'subtitle_newsletter' | trans}}</p>
+                {{ form_start(newsForm) }}
+                <div class="input-group my-3">
+                    {{ form_errors(newsForm.mail) }}
+                    {{ form_widget(newsForm.mail, {'attr':{'class':'form-control', 'placeholder':'Votre mail'}}) }}
+                    <div class="input-group-append">
+                        <button type="submit"
+                                class="btn btn-primary">
+                            <span style="color: white"><i class="far fa-envelope"></i></span>
+                        </button>
+                    </div>
+                </div>
+                {{ form_end(newsForm) }}
+        </aside>
+    </section>
+{% endblock %}

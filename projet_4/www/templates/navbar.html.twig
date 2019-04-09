@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <a class="navbar-brand" href="{{ path('home') }}">{{ 'navbar.title'|trans }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation" style="">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('recap') }}">{{ 'navbar.tickets'|trans }}<span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <div id="langue">
+            <a href="{{ path(app.request.attributes.get("_route"),{'_locale':'fr'}) }}">fr</a>
+            <a href="{{ path(app.request.attributes.get("_route"),{'_locale':'en'}) }}">en</a>
+        </div>
+    </div>
+</nav>

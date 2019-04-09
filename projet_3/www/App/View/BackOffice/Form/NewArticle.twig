@@ -1,0 +1,43 @@
+<div class="modal fade" id="NewArticle" tabindex="-1" role="dialog" aria-labelledby="#NewArticle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title custom-black-title" id="login">Nouvel Article</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form name="login" method="post" action="#">
+                    <div class="form-group">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1"><i class="fas fa-edit"></i></span>
+                            </div>
+                            <label for="article" class="form-control-label"></label>
+                            <input name="createArticle[title]" type="text" class="form-control" placeholder="Nom de l'article" aria-label="article" aria-describedby="basic-addon1" minlength="4" maxlength="50">
+                        </div>
+                        {% for session in session %}
+                            <input name="createArticle[author_id]" type="text" value="{{ session.id }}" hidden>
+                        {% endfor %}
+                        <input name="createArticle[content]" type="text" value="Votre contenu" hidden>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        {% if session %}
+                            <button type="submit" class="btn btn-success">Créer</button>
+                        {% endif %}
+                        {% if not session %}
+                            <button type="button" class="btn btn-outline-info">Vous n'étes pas enregistré</button>
+                        {% endif %}
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

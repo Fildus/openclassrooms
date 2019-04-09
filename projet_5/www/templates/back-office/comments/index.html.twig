@@ -1,0 +1,46 @@
+{% extends 'back-office/base.html.twig' %}
+
+{% block title %}Commentaires{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Commentaires</h1>
+
+    <table class="table table-responsive-md">
+        <thead>
+            <tr>
+                <th>Article</th>
+                <th>Utilisateur</th>
+                <th>Date de création</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in pagination %}
+            <tr>
+                <td>{{ comment.article.Slug }}</td>
+                <td>{{ comment.author.firstName }} {{ comment.author.lastName }}</td>
+                <td>{{ comment.Date ? comment.Date|date('Y-m-d') : '' }}</td>
+                <td class="text-right pr-3 action">
+                    <div class="action">
+                        <a class="btn btn-info" href="{{ path('comments_show', {'id': comment.id}) }}">
+                            <i class="far fa-eye"></i>
+                        </a>
+                        <a class="btn btn-primary" href="{{ path('comments_edit', {'id': comment.id}) }}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination -->
+    <ul class="pagination justify-content-center mb-4">
+        {{ knp_pagination_render(pagination) }}
+    </ul>
+{% endblock %}

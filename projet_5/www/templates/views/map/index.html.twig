@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    <title>Carte migration des oiseaux - Nos Amis Les Oiseaux - NAO</title>
+{% endblock %}
+
+{% block metadescription %}
+    <meta name="description" content="consultez la carte migration des oiseaux, découvrez les photos des différentes espèces et les zones bénéfiques à la protection des oiseaux." />
+{% endblock %}
+
+{% block style %}
+    {{ parent() }}
+
+    <style>
+        #s-search-species {
+            background-color: #ffc107;
+            border-radius: 8px;
+        }
+    </style>
+{% endblock %}
+
+
+{% block body %}
+    <div class="card text-white border-0 mb-5">
+        <img class="card-img cover-custom" src="{{ asset('imgSite/pages/page_carte_nao_2.jpg') }}" alt="Bouteille à la mers">
+        <div class="card-img-overlay d-flex justify-content-center">
+            <div class="col-md-10 text-left text-custom-shadow">
+                <h1 class="font-weight-bold text-white mb-lg-5">{{ 'mapinter_h1_titre' | trans }}</h1>
+                <h2>{{ 'mapinter_h2_sous_titre' | trans }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <section class="container mb-0">
+        <aside id="s-search-species" class="row my-4 text-center" >
+            <div class="col-md-6 mt-3">
+                <h3>{{ 'mapinter_h3_search' | trans }}</h3>
+                <p>{{ 'mapinter_text_1_search' | trans }}</p>
+            </div>
+            <div class="col-md-6 mt-3">
+                <p>{{ 'mapinter_text_2_search' | trans }}</p>
+                <form>
+                    <div class="input-group my-3">
+                        <input type="text"
+                               name="q"
+                               class="form-control"
+                               placeholder="{{ 'mapinter_placeholder_search' | trans }}"
+                               value="{{ app.request.query.get('q') }}"
+                               id="observation_species"
+                               urlAutocomplete="/autocomplete_species_index"
+                        >
+                        <div class="input-group-append">
+                            <button type="submit"
+                                    class="btn btn-primary">
+                                <span style="color: white"><i class="fa fa-search"></i></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </aside>
+    </section>
+
+    <section class="container">
+        <table class="table table-hover text-center">
+            <!--Table head-->
+            <thead>
+                <tr>
+                    <th>{{ 'mapinter_title_1' | trans}}</th>
+                    <th>{{ 'mapinter_title_2' | trans}}</th>
+                    <th>{{ 'mapinter_title_3' | trans}}</th>
+                    <th>{{ 'mapinter_title_4' | trans}}</th>
+                    <th>{{ 'mapinter_title_5' | trans}}</th>
+                </tr>
+            </thead>
+            <!--Table head--
+            <!--Table body-->
+            <tbody>
+            <!--Table-->
+            {% for ob in obs %}
+                <tr>
+                    <td>{{ ob.count }}</td>
+                    <td>{{ ob.famille }}</td>
+                    <td>{{ ob.lbNom }}</td>
+                    <td>{{ ob.nomFr }}</td>
+                    <td><a href="{{ path('find', {'id': ob.id}) }}"><i class="fa fa-eye fa-2x"></i> </a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <!--Table body-->
+        </table>
+        <!--Table-->
+
+    </section>
+{% endblock %}
+
+{% block script %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function(){
+            let $autocompleteSpecies = $("#observation_species");
+            $autocompleteSpecies
+                .autocomplete({
+                    source: document.getElementById('observation_species').getAttribute('urlAutocomplete'),
+                    minLength: 2
+                });
+        });
+    </script>
+{% endblock %}
+
+
+
+

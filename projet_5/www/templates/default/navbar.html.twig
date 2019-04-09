@@ -1,0 +1,94 @@
+{% import _self as macro %}
+
+{% macro buttonNav(name, path, on) %}
+    <div class="buttons-custom buttons-custom-{{ name }}
+    {% if on == 1 %}
+        button-on-page-{{ name }}
+    {% endif %}">
+        <span class="text-center">{{ name|upper|raw }}</span>
+        <img src="{{ asset('imgSite/NavButtons/'~path|lower~'.svg') }}" alt="" height="100%">
+    </div>
+{% endmacro %}
+
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+    <a class="navbar-brand" href="{{ path('home') }}">
+        <img src="{{ asset('imgSite/logo NAO lettrage.png') }}" alt="logo NAO">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbarsExample06" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('home') }}">
+                    {% if app.request.requestUri matches '#^(\/)+$#' %}
+                        {{ macro.buttonNav('accueil', 'accueil', 1) }}
+                    {% else %}
+                        {{ macro.buttonNav('accueil', 'accueil', 0) }}
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                {% if  app.request.session.get('user') is defined and app.request.session.get('user') is not empty%}
+                    <a class="nav-link" href="{{ path('observationCreate') }}">
+                {% else %}
+                    <a class="nav-link" href="{{ path('observationIndex') }}">
+                {% endif %}
+                    {% if app.request.requestUri matches '#^(\/observation)+#' %}
+                        {{ macro.buttonNav('observation', 'observation', 1) }}
+                    {% else %}
+                        {{ macro.buttonNav('observation', 'observation', 0) }}
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('observation') }}">
+                    {% if app.request.requestUri matches '#^(\/carte)+#' %}
+                        {{ macro.buttonNav('carte <br> interactive', 'carte', 1) }}
+                    {% else %}
+                        {{ macro.buttonNav('carte <br> interactive', 'carte', 0) }}
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('evenementIndex') }}">
+                    {% if app.request.requestUri matches '#^(\/evenement)+#' %}
+                        {{ macro.buttonNav('évènements', 'événements', 1) }}
+                    {% else %}
+                        {{ macro.buttonNav('évènements', 'événements', 0) }}
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('blogIndex') }}">
+                    {% if app.request.requestUri matches '#^(\/blog)+#' %}
+                        {{ macro.buttonNav('blog', 'blog', 1) }}
+                    {% else %}
+                        {{ macro.buttonNav('blog', 'blog', 0) }}
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item">
+                {% if  app.request.session.get('user') is defined and app.request.session.get('user') is not empty%}
+                    <a class="nav-link" href="{{ path('myAccount') }}">
+                        {% if app.request.requestUri matches '#^(\/compte)+#' %}
+                            {{ macro.buttonNav('mon compte', 'connexion', 1) }}
+                        {% else %}
+                            {{ macro.buttonNav('mon compte', 'connexion', 0) }}
+                        {% endif %}
+                    </a>
+                {% else %}
+                    <a class="nav-link" href="{{ path('connexion') }}">
+                        {% if app.request.requestUri matches '#^(\/compte)+#' %}
+                            {{ macro.buttonNav('connexion', 'connexion', 1) }}
+                        {% else %}
+                            {{ macro.buttonNav('connexion', 'connexion', 0) }}
+                        {% endif %}
+                    </a>
+                {% endif %}
+
+            </li>
+        </ul>
+    </div>
+</nav>
+{#{{ dump(app.request.session.get('user')) }}#}
